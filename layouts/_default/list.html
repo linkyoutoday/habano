@@ -1,0 +1,23 @@
+{{ partial "header.html" . }}
+	<h1>
+		{{ if not .IsHome }}
+			{{ if (.Section) }}
+				{{ replace .Section "-" " " | lower }}
+			{{ else }}
+				{{ .Title | lower }}
+			{{ end }}
+		{{ else }}
+			home
+		{{ end }}
+	</h1>
+	{{ .Content }}
+	<ul>
+		{{ range .Paginator.Pages }}
+			<li>
+				<span class="date">{{ .Date.Format "02.01.2006" }}</span>
+				<a href="{{ .URL }}">{{ .Title }}</a>
+			</li>
+		{{ end }}
+	</ul>
+{{ partial "pagination" . }}
+{{ partial "footer.html" . }}

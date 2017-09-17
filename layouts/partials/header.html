@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{ .Title }}</title>
+	{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+	{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}/vendor/hack/dist/hack.css">
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css">
+	{{ if .RSSLink -}}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}">{{- end }}
+	{{ .Hugo.Generator }}
+</head>
+<body class="hack">
+	<div class="main container">
+		<div class="title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
+		<header>
+			<div class="menu">
+			{{ if ne .Site.Params.show_menu false }}
+				{{ $len := sub (len .Site.Menus.main) 1 }}
+				{{ range $index, $_ := .Site.Menus.main }}
+					<a href="{{ .URL | relURL }}" class="menu-item">{{.Name }}</a>
+					{{ if lt $index $len }}|{{ end }}
+				{{ end }}
+			{{ end }}
+			</div>
+		</header>

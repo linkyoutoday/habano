@@ -1,0 +1,16 @@
+{{ $.Scratch.Set "print_header" true }}
+{{ $.Scratch.Set "open_ul" false }}
+{{ range $index, $pages := where .Site.Pages ".Params.tags" "intersect" .Params.Tags }}
+  {{ if ne .Permalink $.Permalink }}
+    {{ if $.Scratch.Get "print_header" }}
+      <header>Related Post</header>
+      <ul>
+      {{ $.Scratch.Set "print_header" false }}
+      {{ $.Scratch.Set "open_ul" true }}
+    {{ end }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a>
+  {{ end }}
+{{ end }}
+{{ if $.Scratch.Get "open_ul" }}
+  </ul>
+{{ end }}

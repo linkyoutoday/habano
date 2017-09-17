@@ -1,0 +1,29 @@
+a {
+    color: #FF420E;
+    text-decoration: none;
+    border: none;
+}
+
+a:hover {
+    background-color: transparent;
+    color: #F25C00;
+    font-weight: bold;
+}
+
+.title {
+    margin: 25px 0 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: 2px solid beige;
+}
+
+.title a {
+    text-decoration: none;
+    border: none;
+}
+
+.menu .menu-item {
+    display: inline;
+    text-decoration: none;
+    border: none;
+}
