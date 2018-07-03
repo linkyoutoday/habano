@@ -5,23 +5,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{ .Title }}</title>
-	{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+	{{ if .Summary }}<meta name="description" content="{{ .Summary }}">
+	{{ else }}
+		{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+	{{ end }}
 	{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
 	<link rel="stylesheet" href="{{ .Site.BaseURL }}/vendor/hack/dist/hack.css">
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}/vendor/hack/dist/standard.css">
 	<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css">
 	{{ if .RSSLink -}}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}">{{- end }}
 	{{ .Hugo.Generator }}
 </head>
-<body class="hack">
+<body class="standard">
 	<div class="main container">
-		<div class="title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
+		<div class="title">
+			<a href="{{ if eq .Site.BaseURL "" }}/{{ else }}{{ .Site.BaseURL }}{{ end }}">{{ .Site.Title }}</a>{{ if ne .Site.Params.description "" }}<span> [{{ .Site.Params.description }}]</span>{{ end }}
+		</div>
+		<hr class="title">
 		<header>
 			<div class="menu">
 			{{ if ne .Site.Params.show_menu false }}
 				{{ $len := sub (len .Site.Menus.main) 1 }}
-				{{ range $index, $_ := .Site.Menus.main }}
-					<a href="{{ .URL | relURL }}" class="menu-item">{{.Name }}</a>
-					{{ if lt $index $len }}|{{ end }}
+				{{ range .Site.Menus.main }}
+					<a href="{{ .URL | relURL }}" class="menu-item">[{{.Name }}]</a>
 				{{ end }}
 			{{ end }}
 			</div>
